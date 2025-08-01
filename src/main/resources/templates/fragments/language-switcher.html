@@ -1,0 +1,10 @@
+<!-- Language Switcher Fragment -->
+<div th:fragment="language-switcher" class="language-switcher">
+    <form method="post" action="/set-language" style="display:inline">
+        <select name="lang" onchange="this.form.submit()" class="custom-menu-item" style="border: none; background: transparent; color: inherit; width: 100%; padding: 8px 12px; cursor: pointer;">
+            <option value="it" th:selected="${#locale.language == 'it'}">🇮🇹 Italiano</option>
+            <option value="en" th:selected="${#locale.language == 'en'}">🇬🇧 English</option>
+        </select>
+    </form>
+</div>
+<!-- End Language Switcher -->

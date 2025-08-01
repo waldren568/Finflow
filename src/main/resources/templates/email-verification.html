@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinFlow - Verifica Email</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .verification-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        .success-icon {
+            color: #28a745;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        .error-icon {
+            color: #dc3545;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        .btn-finflow {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-finflow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            color: white;
+        }
+        .finflow-logo {
+            color: #667eea;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="verification-card">
+        <div class="finflow-logo">
+            <i class="fas fa-chart-line"></i> FinFlow
+        </div>
+        
+        <div th:if="${verified}">
+            <i class="fas fa-check-circle success-icon"></i>
+            <h2 class="text-success mb-3" th:text="#{verification.success.title}">Email Verificata!</h2>
+            <p class="lead mb-4" th:text="#{verification.success.message}">
+                Il tuo account è stato verificato con successo! 
+                Ora puoi accedere e iniziare a gestire le tue finanze.
+            </p>
+            <div class="d-grid gap-2">
+                <a href="/login" class="btn btn-finflow">
+                    <i class="fas fa-sign-in-alt me-2"></i>
+                    <span th:text="#{verification.success.button}">Accedi al tuo Account</span>
+                </a>
+            </div>
+        </div>
+        
+        <div th:unless="${verified}">
+            <i class="fas fa-times-circle error-icon"></i>
+            <h2 class="text-danger mb-3" th:text="#{verification.error.title}">Verifica Fallita</h2>
+            <p class="lead mb-4" th:text="#{verification.error.message}">
+                Il link di verifica non è valido o è scaduto. 
+                Controlla la tua email o registrati nuovamente.
+            </p>
+            <div class="d-grid gap-2">
+                <a href="/register" class="btn btn-finflow">
+                    <i class="fas fa-user-plus me-2"></i>
+                    <span th:text="#{verification.error.button}">Registrati di Nuovo</span>
+                </a>
+                <a href="/login" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    <span th:text="#{verification.back.button}">Torna al Login</span>
+                </a>
+            </div>
+        </div>
+        
+        <hr class="my-4">
+        <small class="text-muted">
+            <i class="fas fa-shield-alt me-1"></i>
+            <span th:text="#{verification.footer}">La tua sicurezza è importante per noi</span>
+        </small>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
