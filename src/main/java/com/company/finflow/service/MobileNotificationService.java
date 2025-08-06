@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Profile("mobile")
 public class MobileNotificationService implements IEmailService {
 
-    @Value("${app.base-url:http://192.168.1.157:8010}")
+    @Value("${app.base.url:http://192.168.1.157:8010}")
     private String baseUrl;
     
     @Autowired

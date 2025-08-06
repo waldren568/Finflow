@@ -13,7 +13,7 @@ import jakarta.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
 
 @Service
-@Profile("test-email")
+@Profile({"test-email", "production"})
 public class SimpleEmailService implements IEmailService {
 
     @Autowired

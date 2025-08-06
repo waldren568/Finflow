@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Profile("dev")
 public class CmdNotificationService implements IEmailService {
 
-    @Value("${app.base-url:http://localhost:8010}")
+    @Value("${app.base.url:http://localhost:8010}")
     private String baseUrl;
     
     @Autowired
