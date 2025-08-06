@@ -1,6 +1,7 @@
 package com.company.finflow.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,14 +18,17 @@ public class SimpleEmailService implements IEmailService {
 
     @Autowired
     private JavaMailSender mailSender;
+    
+    @Value("${app.base.url:http://192.168.1.157:8010}")
+    private String baseUrl;
 
     @Override
     public void sendVerificationEmail(String toEmail, String verificationToken) {
         try {
-            String verificationLink = "https://192.168.1.157:8443/verify?token=" + verificationToken;
+            String verificationLink = baseUrl + "/verify?token=" + verificationToken;
             
             // DEBUG: Log del link
-            System.out.println("🔗 HTTPS VERIFICATION LINK: " + verificationLink);
+            System.out.println("🔗 HTTP VERIFICATION LINK: " + verificationLink);
             System.out.println("🎫 TOKEN: " + verificationToken);
             
             // Leggi template HTML

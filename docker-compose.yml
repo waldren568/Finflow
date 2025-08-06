@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  finflow:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=production
+      - PORT=8080
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data

@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: finflow
+    env: java
+    plan: free
+    buildCommand: ./mvnw clean package -DskipTests -Dmaven.test.skip=true
+    startCommand: java -Dserver.ssl.enabled=false -Dspring.profiles.active=production -jar target/finflow-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: JAVA_OPTS
+        value: "-Xmx512m -Dserver.ssl.enabled=false"
+      - key: APP_BASE_URL
+        value: "https://finflow.onrender.com"
