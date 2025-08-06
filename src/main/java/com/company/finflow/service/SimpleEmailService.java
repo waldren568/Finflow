@@ -27,8 +27,11 @@ public class SimpleEmailService implements IEmailService {
         try {
             String verificationLink = baseUrl + "/verify?token=" + verificationToken;
             
-            // DEBUG: Log del link
-            System.out.println("🔗 HTTP VERIFICATION LINK: " + verificationLink);
+            // DEBUG: Log del link e configurazione
+            System.out.println("� BASE URL CONFIGURED: " + baseUrl);
+            System.out.println("🌍 ACTIVE PROFILES: " + System.getProperty("spring.profiles.active"));
+            System.out.println("📧 APP_BASE_URL ENV VAR: " + System.getenv("APP_BASE_URL"));
+            System.out.println("🔗 FINAL VERIFICATION LINK: " + verificationLink);
             System.out.println("🎫 TOKEN: " + verificationToken);
             
             // Leggi template HTML
