@@ -25,7 +25,17 @@ public class SimpleEmailService implements IEmailService {
     @Override
     public void sendVerificationEmail(String toEmail, String verificationToken) {
         try {
-            String verificationLink = baseUrl + "/verify?token=" + verificationToken;
+            // FORCE production URL if environment variable exists
+            String actualBaseUrl = baseUrl;
+            String envBaseUrl = System.getenv("APP_BASE_URL");
+            if (envBaseUrl != null && !envBaseUrl.isEmpty()) {
+                actualBaseUrl = envBaseUrl;
+                System.out.println("🔄 USING ENV VAR URL: " + envBaseUrl);
+            } else {
+                System.out.println("⚠️ ENV VAR NOT FOUND, USING DEFAULT: " + baseUrl);
+            }
+            
+            String verificationLink = actualBaseUrl + "/verify?token=" + verificationToken;
             
             // DEBUG: Log del link e configurazione
             System.out.println("� BASE URL CONFIGURED: " + baseUrl);
