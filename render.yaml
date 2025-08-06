@@ -11,4 +11,4 @@ services:
       - key: JAVA_OPTS
         value: "-Xmx512m -Dserver.ssl.enabled=false"
       - key: APP_BASE_URL
-        value: "https://finflow.onrender.com"
+        value: "https://finflow-iio5.onrender.com"
