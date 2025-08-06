@@ -42,6 +42,10 @@
                         <button type="submit" class="custom-menu-item" th:text="'🚪 ' + #{logout}">Logout</button>
                     </form>
                     <hr class="custom-menu-sep">
+                    <form action="/delete-unverified-users" method="post" 
+                          th:onsubmit="'return confirm(\'Are you sure you want to delete all unverified accounts? This action cannot be undone.\')'">
+                        <button type="submit" class="custom-menu-item text-warning" title="Delete all accounts that haven't been verified via email">🧹 Delete Unverified Accounts</button>
+                    </form>
                     <form action="/delete-account" method="post" 
                           th:onsubmit="'return confirm(\''+#{delete.account.confirm}+'\')'">
                         <button type="submit" class="custom-menu-item text-danger" th:text="'🗑️ ' + #{delete.account}">🗑️ Delete Account</button>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 @Controller
 public class AuthController {
@@ -61,6 +62,23 @@ public class AuthController {
     public String deleteTestUsers() {
         appUserRepository.deleteByUsernameStartingWith("test");
         return "redirect:/";
+    }
+
+    /**
+     * Endpoint per cancellare tutti gli account non verificati
+     */
+    @PostMapping("/delete-unverified-users")
+    @Transactional
+    public String deleteUnverifiedUsers() {
+        // Trova tutti gli utenti non verificati
+        List<AppUser> unverifiedUsers = appUserRepository.findByEmailVerified(false);
+        
+        // Cancella ciascun utente non verificato
+        for (AppUser user : unverifiedUsers) {
+            appUserService.deleteUser(user);
+        }
+        
+        return "redirect:/?message=Deleted " + unverifiedUsers.size() + " unverified accounts";
     }
 
     /**
