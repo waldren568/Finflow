@@ -29,7 +29,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/login", "/register", "/verify", "/css/**", "/js/**", "/h2-console/**").permitAll()
                 .requestMatchers("/add-amount", "/add-goal", "/add-section", "/section/**", "/contribute-goal").authenticated()
-                .requestMatchers("/delete-test-users", "/delete-account", "/delete-unverified-users").authenticated()
+                .requestMatchers("/delete-test-users", "/delete-account", "/delete-unverified-users", "/count-unverified-users").authenticated()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

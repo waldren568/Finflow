@@ -69,16 +69,51 @@ public class AuthController {
      */
     @PostMapping("/delete-unverified-users")
     @Transactional
-    public String deleteUnverifiedUsers() {
-        // Trova tutti gli utenti non verificati
-        List<AppUser> unverifiedUsers = appUserRepository.findByEmailVerified(false);
-        
-        // Cancella ciascun utente non verificato
-        for (AppUser user : unverifiedUsers) {
-            appUserService.deleteUser(user);
+    public String deleteUnverifiedUsers(Model model) {
+        try {
+            // Trova tutti gli utenti non verificati
+            List<AppUser> unverifiedUsers = appUserRepository.findByEmailVerified(false);
+            
+            System.out.println("🔍 FOUND " + unverifiedUsers.size() + " UNVERIFIED USERS");
+            
+            int deletedCount = 0;
+            // Cancella ciascun utente non verificato
+            for (AppUser user : unverifiedUsers) {
+                System.out.println("🗑️ DELETING USER: " + user.getUsername() + " (" + user.getEmail() + ")");
+                appUserService.deleteUser(user);
+                deletedCount++;
+            }
+            
+            String message = "✅ Successfully deleted " + deletedCount + " unverified accounts";
+            System.out.println(message);
+            
+            return "redirect:/?message=" + java.net.URLEncoder.encode(message, "UTF-8");
+            
+        } catch (Exception e) {
+            String errorMessage = "❌ Error deleting unverified accounts: " + e.getMessage();
+            System.err.println(errorMessage);
+            e.printStackTrace();
+            
+            try {
+                return "redirect:/?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8");
+            } catch (Exception ex) {
+                return "redirect:/?error=Error occurred while deleting accounts";
+            }
         }
-        
-        return "redirect:/?message=Deleted " + unverifiedUsers.size() + " unverified accounts";
+    }
+
+    /**
+     * Endpoint per contare gli account non verificati (solo visualizzazione)
+     */
+    @GetMapping("/count-unverified-users")
+    @ResponseBody
+    public String countUnverifiedUsers() {
+        try {
+            List<AppUser> unverifiedUsers = appUserRepository.findByEmailVerified(false);
+            return "Found " + unverifiedUsers.size() + " unverified accounts in database";
+        } catch (Exception e) {
+            return "Error counting unverified accounts: " + e.getMessage();
+        }
     }
 
     /**
