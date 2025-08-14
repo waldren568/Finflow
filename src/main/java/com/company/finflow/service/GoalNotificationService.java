@@ -14,7 +14,7 @@ public class GoalNotificationService {
     @Autowired
     private WebNotificationService webNotificationService;
     
-    @Value("${spring.profiles.active}")
+    @Value("${spring.profiles.active:default}")
     private String activeProfile;
     
     public void checkAndNotifyGoalCompletion(Goal goal) {
