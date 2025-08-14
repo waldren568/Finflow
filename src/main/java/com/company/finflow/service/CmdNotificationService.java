@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile("dev")
+@Profile({"dev", "default"})
 public class CmdNotificationService implements IEmailService {
 
     @Value("${app.base.url:http://localhost:8010}")
