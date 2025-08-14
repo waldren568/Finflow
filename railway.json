@@ -1,5 +1,4 @@
 {
-  "$schema": "https://railway.app/railway.schema.json",
   "build": {
     "builder": "nixpacks"
   },
@@ -7,5 +6,9 @@
     "startCommand": "java -jar target/finflow-0.0.1-SNAPSHOT.jar --spring.profiles.active=production",
     "healthcheckPath": "/",
     "healthcheckTimeout": 300
+  },
+  "env": {
+    "PORT": "8080",
+    "APP_BASE_URL": "https://finflow.up.railway.app"
   }
 }
